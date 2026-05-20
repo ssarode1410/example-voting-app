@@ -15,7 +15,7 @@ spec:
         app: vote
     spec:
       containers:
-      - image: 162876227471.dkr.ecr.us-east-1.amazonaws.com/argocd/evoting-app:16
+      - image: 162876227471.dkr.ecr.us-east-1.amazonaws.com/argocd/evoting-app:17
         name: vote
         ports:
         - containerPort: 80
