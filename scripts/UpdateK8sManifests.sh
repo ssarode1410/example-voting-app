@@ -18,7 +18,7 @@ git clone "$REPO_URL" /tmp/temp_repo
 cd /tmp/temp_repo
 
 # 5. Update the Kubernetes manifest file dynamically
-sed -i "s|image:.*|image: $NEW_IMAGE_URI|g" "k8s-specifications/${APP_NAME}-deployment.yaml"
+sed -i "s|image:.*|image: $NEW_IMAGE_URI|g" "k8s-specifications/vote-deployment.yaml"
 
 # 6. Stage, commit, and push the updated manifest back to GitHub
 git add .
