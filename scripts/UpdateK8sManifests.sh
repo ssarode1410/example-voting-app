@@ -14,6 +14,7 @@ APP_NAME=$(basename "$NEW_IMAGE_URI" | cut -d':' -f1)
 REPO_URL="https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/ssarode1410/example-voting-app.git"
 
 # 4. Clone the repository to a temporary workspace
+rm -rf /tmp/temp_repo
 git clone "$REPO_URL" /tmp/temp_repo
 cd /tmp/temp_repo
 
