@@ -1,28 +1,24 @@
 #!/bin/bash
+set -e # This forces the script to exit immediately if any command fails
 
-set -x
+# Assign arguments to variables
+GIT_REPO_URL=$1
+NEW_IMAGE_URI=$2
 
-# Set the repository URL
-REPO_URL="https://162876227471.dkr.ecr.us-east-1.amazonaws.com/argocd/evoting-app"
-
-# Clone the git repository into the /tmp directory
-git clone "$REPO_URL" /tmp/temp_repo
-
-# Navigate into the cloned repository directory
+# Create a temporary directory and clone the Git repo
+git clone "$GIT_REPO_URL" /tmp/temp_repo
 cd /tmp/temp_repo
 
-# Make changes to the Kubernetes manifest file(s)
-# For example, let's say you want to change the image tag in a deployment.yaml file
-sed -i "s|image:.*|image: 162876227471.dkr.ecr.us-east-1.amazonaws.com/argocd/evoting-app/$2:$3|g" k8s-specifications/$1-deployment.yaml
+# Update the deployment file (update the path to match your actual repo structure)
+# This replaces the old image URI with the new one
+sed -i "s|image:.*|image: $NEW_IMAGE_URI|g" k8s-specifications/vote-deployment.yaml
 
-# Add the modified files
+# Commit and push the changes back to Git
+git config user.name "Shantanu Sarode"
+git config user.email "sarode437@gmail.com"
 git add .
+git commit -m "Update Kubernetes manifest to image $NEW_IMAGE_URI"
+git push origin main
 
-# Commit the changes
-git commit -m "Update Kubernetes manifest"
-
-# Push the changes back to the repository
-git push
-
-# Cleanup: remove the temporary directory
+# Cleanup
 rm -rf /tmp/temp_repo
